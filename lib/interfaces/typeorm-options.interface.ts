@@ -33,6 +33,18 @@ export type TypeOrmModuleOptions = {
    * If `true`, will show verbose error messages on each connection retry.
    */
   verboseRetryLog?: boolean;
+
+  /**
+   * A custom repository class to be used by all entities in the current DataSource.
+   * Ignored for tree entities.
+   */
+  baseRepository?:any;
+
+  /**
+   * Custom repositories for specific entities. Classes must have @CustomRepository(<Entity>) decorator assigned.
+   */
+  repositories?:any[];
+
 } & Partial<DataSourceOptions>;
 
 export interface TypeOrmOptionsFactory {
