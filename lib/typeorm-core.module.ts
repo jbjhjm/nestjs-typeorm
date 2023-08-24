@@ -31,6 +31,7 @@ import {
   TypeOrmOptionsFactory,
 } from './interfaces/typeorm-options.interface';
 import { TYPEORM_MODULE_ID, TYPEORM_MODULE_OPTIONS } from './typeorm.constants';
+import { createRepositoryManagerProvider } from './repository-manager';
 
 @Global()
 @Module({})
@@ -56,12 +57,20 @@ export class TypeOrmCoreModule implements OnApplicationShutdown {
       options as DataSourceOptions,
     );
 
+	const repositoryManagerProvider = createRepositoryManagerProvider(options as DataSourceOptions);
+
     const providers = [
       entityManagerProvider,
       dataSourceProvider,
+	  repositoryManagerProvider,
       typeOrmModuleOptions,
     ];
-    const exports = [entityManagerProvider, dataSourceProvider];
+
+    const exports = [
+		entityManagerProvider, 
+		dataSourceProvider,
+		repositoryManagerProvider,
+	];
 
     // TODO: "Connection" class is going to be removed in the next version of "typeorm"
     if (dataSourceProvider.provide === DataSource) {
@@ -105,11 +114,14 @@ export class TypeOrmCoreModule implements OnApplicationShutdown {
       inject: [getDataSourceToken(options as DataSourceOptions)],
     };
 
+	const repositoryManagerProvider = createRepositoryManagerProvider(options as DataSourceOptions);
+
     const asyncProviders = this.createAsyncProviders(options);
     const providers = [
       ...asyncProviders,
       entityManagerProvider,
       dataSourceProvider,
+	  repositoryManagerProvider,
       {
         provide: TYPEORM_MODULE_ID,
         useValue: generateString(),
@@ -119,6 +131,7 @@ export class TypeOrmCoreModule implements OnApplicationShutdown {
     const exports: Array<Provider | Function> = [
       entityManagerProvider,
       dataSourceProvider,
+	  repositoryManagerProvider,
     ];
 
     // TODO: "Connection" class is going to be removed in the next version of "typeorm"
