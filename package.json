@@ -1,8 +1,8 @@
 {
   "name": "@yooniversity/nestjs-typeorm",
-  "version": "10.0.0",
+  "version": "10.0.0rc7",
   "description": "Nest - modern, fast, powerful node.js web framework (@typeorm)",
-  "author": "Kamil Mysliwiec",
+  "author": "Jannik Mewes, Kamil Mysliwiec",
   "license": "MIT",
   "url": "https://github.com/nestjs/typeorm#readme",
   "scripts": {
@@ -50,6 +50,7 @@
     "typescript": "5.1.6"
   },
   "dependencies": {
+    "colors": "^1.4.0",
     "uuid": "9.0.0"
   },
   "peerDependencies": {

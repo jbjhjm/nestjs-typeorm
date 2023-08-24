@@ -4,3 +4,5 @@ export * from './typeorm-core.module';
 export * from './typeorm.constants';
 export * from './typeorm.providers';
 export * from './typeorm.module';
+export * from './repository';
+export * from './manager';
